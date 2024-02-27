@@ -57,7 +57,46 @@ class Game:
                 self.dfs(row, col, trie.root) 
 
     def dfs(self, row: int, col: int, trie_node: dict, letters: List[str], indices: List[int]):
+        letter= self.board[row][col]
         
+        # max len check
+        if len(letters) >= self.max_ans_len:
+            return
+        
+        # no word available in trie by choosing letter at <row><col> index in board
+        if letters not in trie_node:
+            return
+        
+        # add index and letter into their lists
+        letters.append(letter)
+        indices.append([row, col])
+        
+        # check if letter makes a word 
+        trie_node= trie_node[letter]
+        if trie_node.get('#', False):            
+            self.answers["".join(letters)]= indices
+            
+        # iterate over the possbile indices
+        # for [row, col] in self.find_possible_indices_form_index(row, col, visited):
+        #     pass
+        
+        
+    
+    def find_possible_indices_form_index(self, row: int, col: int, visited: set):
+
+        possible_move= [-1, 0, 1]
+        possible_indices= []
+        
+        for row_shift in possible_move:
+            for col_shift in possible_move:
+                
+                new_row= row+row_shift
+                new_col= col+col_shift
+                
+                if (new_row, new_col) not in visited:
+                     possible_indices.append([new_row, new_col])
+        
+        return possible_indices
         
         
         
