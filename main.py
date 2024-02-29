@@ -47,4 +47,5 @@ async def play(letters: str, min_length: int = 0, max_len: int = 10):
     game.populate_board(letters)
     game.find_solutions(trie, min_length)
     
+    return game.answers
     
